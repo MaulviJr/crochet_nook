@@ -1,26 +1,144 @@
-@import "tailwindcss";
+/* ============================================================
+   Crochet Nook — Design Tokens (shadcn/ui compatible)
+   Palette source: blush pink bg, deep purple accent, lavender secondary
+   Drop this into globals.css. Values are raw HSL triplets
+   (no hsl() wrapper) because that's what shadcn's tailwind.config
+   expects, e.g. background: "hsl(var(--background))"
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Poppins:wght@400;500;600;700&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ---- Brand fonts ----
+     Swapped from Caveat (casual handwriting) to Alex Brush —
+     matches the elegant, connected-loop calligraphy in the
+     reference screenshot much more closely. Sacramento or
+     Parisienne are close alternates if you want to A/B test. */
+  --font-heading: 'Alex Brush', cursive;
+  --font-body: 'Poppins', sans-serif;
+
+  /* ---- Core surface & text ---- */
+  --background: 333 65% 97%;              /* warm blush/cream pink page background */
+  --foreground: 309 45% 18%;              /* deep plum text, high contrast */
+
+  --card: 0 0% 100%;                      /* white product cards so photos pop */
+  --card-foreground: 309 45% 18%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 309 45% 18%;
+
+  /* ---- Brand accent colors ----
+     Hue shifted from 279 (blue-violet) to 309 (magenta/plum) to
+     match the reference's warmer, wine-purple button/nav color. */
+  --primary: 309 49% 28%;                 /* deep plum-purple — CTAs, headings */
+  --primary-foreground: 333 70% 97%;      /* soft pink text on purple buttons */
+
+  --secondary: 276 40% 88%;               /* light lavender tint — secondary buttons/badges */
+  --secondary-foreground: 309 49% 24%;
+
+  --accent: 276 48% 77%;                  /* lavender — top bar, hover/highlight states */
+  --accent-foreground: 309 49% 20%;
+
+  --muted: 333 40% 94%;                   /* muted pink — subtle section backgrounds */
+  --muted-foreground: 309 20% 45%;        /* soft plum-gray — secondary text */
+
+  /* ---- New: dedicated deep footer tone (not in original file) ----
+     The reference uses a near-black plum for the footer that sits
+     darker than --primary, not just a dark-mode swap. */
+  --footer: 293 40% 14%;
+  --footer-foreground: 333 50% 92%;
+
+  /* ---- Semantic (kept neutral, not brand-tinted) ---- */
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 98%;
+
+  /* ---- Structure ---- */
+  --border: 300 30% 88%;                  /* soft lavender-pink border */
+  --input: 300 30% 90%;
+  --ring: 309 49% 28%;                    /* focus ring matches primary */
+
+  --radius: 1rem;                         /* soft rounded corners throughout */
+
+  /* ---- Soft shadow tokens (subtle, not hard-edged) ---- */
+  --shadow-sm: 0 2px 8px -2px hsl(309 49% 28% / 0.10);
+  --shadow-md: 0 4px 20px -4px hsl(309 49% 28% / 0.15);
+  --shadow-lg: 0 10px 40px -8px hsl(309 49% 28% / 0.20);
+
+  /* ---- Optional chart/tag colors (category badges etc.) ---- */
+  --chart-1: 309 49% 28%;   /* plum-purple */
+  --chart-2: 276 48% 77%;   /* lavender */
+  --chart-3: 333 70% 85%;   /* pink */
+  --chart-4: 30 60% 70%;    /* warm neutral accent, for baby-item category etc. */
+  --chart-5: 150 25% 60%;   /* soft sage, for "leaf/nature" category tags */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ------------------------------------------------------------
+   Optional dark mode — the brand is airy/light by design, but
+   included for completeness / testing component states.
+   Deep purple-black surface with lavender text.
+   ------------------------------------------------------------ */
+.dark {
+  --background: 279 35% 10%;
+  --foreground: 333 60% 92%;
+
+  --card: 279 30% 14%;
+  --card-foreground: 333 60% 92%;
+
+  --popover: 279 30% 14%;
+  --popover-foreground: 333 60% 92%;
+
+  --primary: 276 48% 77%;                 /* lavender becomes primary in dark mode */
+  --primary-foreground: 279 45% 15%;
+
+  --secondary: 279 25% 22%;
+  --secondary-foreground: 333 60% 92%;
+
+  --accent: 279 30% 26%;
+  --accent-foreground: 333 60% 92%;
+
+  --muted: 279 25% 18%;
+  --muted-foreground: 300 20% 70%;
+
+  --destructive: 0 62% 45%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 279 25% 22%;
+  --input: 279 25% 22%;
+  --ring: 276 48% 77%;
+
+  --footer: 293 45% 8%;
+  --footer-foreground: 333 50% 92%;
+
+  --shadow-sm: 0 2px 8px -2px hsl(0 0% 0% / 0.30);
+  --shadow-md: 0 4px 20px -4px hsl(0 0% 0% / 0.35);
+  --shadow-lg: 0 10px 40px -8px hsl(0 0% 0% / 0.40);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ------------------------------------------------------------
+   Base styling hookups (Tailwind's @layer base, if using
+   @tailwind directives elsewhere in this file)
+   ------------------------------------------------------------ */
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, h4, .font-heading {
+    font-family: var(--font-heading);
+    font-weight: 600;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Footer helper — since --footer isn't part of shadcn's default
+   variable set, apply it directly where needed:
+   <footer className="bg-footer text-footer-foreground"> */
+.bg-footer {
+  background-color: hsl(var(--footer));
+}
+.text-footer-foreground {
+  color: hsl(var(--footer-foreground));
 }
