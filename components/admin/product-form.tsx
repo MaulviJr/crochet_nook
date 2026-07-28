@@ -4,10 +4,13 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ZodError } from 'zod'
 import { toast } from 'sonner'
+import { Trash2 } from 'lucide-react'
 import { createProductSchema, CATEGORY_OPTIONS, type CreateProductInput } from '@/lib/schemas/product'
 import { slugify } from '@/lib/format'
+import type { Product } from '@/lib/product'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { ImageUploadField } from '@/components/admin/image-upload-field'
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
@@ -16,20 +19,30 @@ import { Card, CardContent } from '@/components/ui/card'
 
 const MAX_DESCRIPTION = 300
 
-export function ProductForm() {
-  const router = useRouter()
+type ProductFormProps = {
+  mode?: 'create' | 'edit'
+  /** Required when mode="edit" — the existing product to pre-fill and update. */
+  product?: Product
+}
 
-  const [name, setName] = useState('')
-  const [slug, setSlug] = useState('')
-  const [slugTouched, setSlugTouched] = useState(false)
-  const [category, setCategory] = useState('gajray')
-  const [isCustomPrice, setIsCustomPrice] = useState(false)
-  const [price, setPrice] = useState('')
-  const [description, setDescription] = useState('')
-  const [imagesInput, setImagesInput] = useState('')
-  const [featured, setFeatured] = useState(false)
+export function ProductForm({ mode = 'create', product }: ProductFormProps) {
+  const router = useRouter()
+  const isEdit = mode === 'edit' && !!product
+
+  const [name, setName] = useState(product?.name ?? '')
+  const [slug, setSlug] = useState(product?.slug ?? '')
+  // In edit mode the slug was deliberately set already — don't let typing in
+  // the name field silently overwrite it the way it does on create.
+  const [slugTouched, setSlugTouched] = useState(isEdit)
+  const [category, setCategory] = useState(product?.category ?? 'gajray')
+  const [isCustomPrice, setIsCustomPrice] = useState(product ? product.price === null : false)
+  const [price, setPrice] = useState(product?.price != null ? String(product.price) : '')
+  const [description, setDescription] = useState(product?.description ?? '')
+  const [images, setImages] = useState<string[]>(product?.images ?? [])
+  const [featured, setFeatured] = useState(product?.featured ?? false)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [submitting, setSubmitting] = useState(false)
+  const [deleting, setDeleting] = useState(false)
 
   function handleNameChange(value: string) {
     setName(value)
@@ -43,7 +56,7 @@ export function ProductForm() {
       category,
       price: isCustomPrice ? null : price ? Number(price) : undefined,
       description: description.trim() || undefined,
-      images: imagesInput.split(',').map((url) => url.trim()).filter(Boolean),
+      images,
       featured,
     }
   }
@@ -64,29 +77,59 @@ export function ProductForm() {
 
     setSubmitting(true)
     try {
-      const res = await fetch('/api/products', {
-        method: 'POST',
+      const url = isEdit ? `/api/products/${product!.id}` : '/api/products'
+      const method = isEdit ? 'PUT' : 'POST'
+
+      const res = await fetch(url, {
+        method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(validated),
       })
       if (!res.ok) {
         const body = await res.json().catch(() => ({}))
-        throw new Error(body.error ?? 'Failed to create product')
+        throw new Error(body.error ?? `Failed to ${isEdit ? 'update' : 'create'} product`)
       }
 
-      toast.success('Product created successfully')
+      toast.success(isEdit ? 'Product updated successfully' : 'Product created successfully')
+
+      if (isEdit) {
+        router.push('/admin/products')
+        router.refresh()
+        return
+      }
 
       if (redirectAfter) {
         router.push('/admin/products')
         router.refresh()
       } else {
         setName(''); setSlug(''); setSlugTouched(false); setPrice('')
-        setIsCustomPrice(false); setDescription(''); setImagesInput(''); setFeatured(false)
+        setIsCustomPrice(false); setDescription(''); setImages([]); setFeatured(false)
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Something went wrong')
     } finally {
       setSubmitting(false)
+    }
+  }
+
+  async function handleDelete() {
+    if (!product) return
+    const confirmed = window.confirm(`Delete "${product.name}"? This can't be undone.`)
+    if (!confirmed) return
+
+    setDeleting(true)
+    try {
+      const res = await fetch(`/api/products/${product.id}`, { method: 'DELETE' })
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}))
+        throw new Error(body.error ?? 'Failed to delete product')
+      }
+      toast.success('Product deleted')
+      router.push('/admin/products')
+      router.refresh()
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Something went wrong')
+      setDeleting(false)
     }
   }
 
@@ -106,11 +149,7 @@ export function ProductForm() {
 
           <div className="grid sm:grid-cols-2 gap-5">
             <Field label="Category" required error={errors.category}>
-              <Select value={category}   onValueChange={(value) => {
-    if (value) {
-      setCategory(value)
-    }
-  }}>
+              <Select value={category} onValueChange={(value) => { if (value) setCategory(value) }}>
                 <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   {CATEGORY_OPTIONS.map((opt) => <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>)}
@@ -140,9 +179,8 @@ export function ProductForm() {
       <Card>
         <CardContent className="p-6 space-y-5">
           <h2 className="font-heading text-2xl text-primary">Photos</h2>
-          {/* Placeholder until Phase 5 builds real Supabase Storage upload */}
-          <Field label="Image URLs" required error={errors.images} hint="Comma-separated URLs — replace with real upload in Phase 5">
-            <Textarea value={imagesInput} onChange={(e) => setImagesInput(e.target.value)} placeholder="https://example.com/photo1.jpg, https://example.com/photo2.jpg" rows={2} />
+          <Field label="Product Images" required error={errors.images} hint="JPEG, PNG, WEBP, or GIF — up to 5MB each">
+            <ImageUploadField images={images} onChange={setImages} />
           </Field>
         </CardContent>
       </Card>
@@ -158,12 +196,29 @@ export function ProductForm() {
         </CardContent>
       </Card>
 
-      <div className="flex flex-col sm:flex-row gap-3 justify-end">
-        <Button type="button" variant="outline" onClick={() => router.push('/admin/products')} disabled={submitting}>Cancel</Button>
-        <Button type="button" variant="secondary" onClick={() => submit(false)} disabled={submitting}>
-          {submitting ? 'Saving...' : 'Save & Add Another'}
+      <div className="flex flex-col sm:flex-row gap-3 sm:justify-end">
+        {isEdit && (
+          <Button
+            type="button"
+            variant="destructive"
+            onClick={handleDelete}
+            disabled={submitting || deleting}
+            className="sm:mr-auto"
+          >
+            <Trash2 size={16} /> {deleting ? 'Deleting...' : 'Delete Product'}
+          </Button>
+        )}
+        <Button type="button" variant="outline" onClick={() => router.push('/admin/products')} disabled={submitting || deleting}>
+          Cancel
         </Button>
-        <Button type="submit" disabled={submitting}>{submitting ? 'Saving...' : 'Save Product'}</Button>
+        {!isEdit && (
+          <Button type="button" variant="secondary" onClick={() => submit(false)} disabled={submitting}>
+            {submitting ? 'Saving...' : 'Save & Add Another'}
+          </Button>
+        )}
+        <Button type="submit" disabled={submitting || deleting}>
+          {submitting ? 'Saving...' : isEdit ? 'Save Changes' : 'Save Product'}
+        </Button>
       </div>
     </form>
   )

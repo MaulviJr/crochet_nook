@@ -2,7 +2,7 @@
 
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import { useRouter } from "next/navigation";
-
+import {Button} from "./ui/button";
 export default function LogoutButton() {
   const router = useRouter();
 
@@ -16,8 +16,8 @@ export default function LogoutButton() {
   }
 
   return (
-    <button onClick={logout}>
+    <Button onClick={logout}>
       Logout
-    </button>
+    </Button>
   );
 }

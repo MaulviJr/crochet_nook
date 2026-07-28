@@ -8,6 +8,18 @@ import { supabaseServer } from '@/lib/supabase-server'
 
 import { createProductSchema, updateProductSchema, type CreateProductInput, type UpdateProductInput } from '@/lib/schemas/product'
 
+export type Product = {
+  id: string
+  name: string
+  slug: string
+  category: string
+  price: number | null
+  description: string | null
+  images: string[]
+  featured: boolean
+  created_at: string
+}
+
 /* ============================================================
    2. REPOSITORY
    ============================================================ */

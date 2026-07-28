@@ -11,11 +11,11 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select'
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table'
 import { formatPrice, formatDate, CATEGORY_LABELS } from '@/lib/format'
-
-type Product = {
-  id: string; name: string; slug: string; category: string
-  price: number | null; images: string[]; featured: boolean; created_at: string
-}
+import type { Product } from '@/lib/product'
+// type Product = {
+//   id: string; name: string; slug: string; category: string
+//   price: number | null; images: string[]; featured: boolean; created_at: string
+// }
 
 export function ProductsPageClient({ initialProducts }: { initialProducts: Product[] }) {
   const [search, setSearch] = useState('')
