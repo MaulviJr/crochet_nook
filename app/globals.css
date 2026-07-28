@@ -1,45 +1,47 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
+
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2914 0.0820 334.3262);
+  --card: oklch(1.0000 0 0);
+  --card-foreground: oklch(0.2914 0.0820 334.3262);
+  --popover: oklch(1.0000 0 0);
+  --popover-foreground: oklch(0.2914 0.0820 334.3262);
+  --primary: oklch(0.2050 0 0);
+  --primary-foreground: oklch(0.9711 0.0135 347.9393);
+  --secondary: oklch(0.8896 0.0374 312.0466);
+  --secondary-foreground: oklch(0.3510 0.1105 333.9958);
+  --muted: oklch(0.9479 0.0145 350.0965);
+  --muted-foreground: oklch(0.5378 0.0814 332.1561);
+  --accent: oklch(0.7808 0.0874 311.3752);
+  --accent-foreground: oklch(0.3121 0.0950 334.3211);
+  --destructive: oklch(0.5770 0.2450 27.3250);
   --destructive-foreground: oklch(0.9851 0 0);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --border: oklch(0.9220 0 0);
+  --input: oklch(0.9169 0.0257 325.7849);
+  --ring: oklch(0.3889 0.1254 333.7648);
+  --chart-1: oklch(0.8100 0.1000 252);
+  --chart-2: oklch(0.7808 0.0874 311.3752);
+  --chart-3: oklch(0.8566 0.0689 350.2184);
+  --chart-4: oklch(0.7964 0.0802 66.8714);
+  --chart-5: oklch(0.7233 0.0660 161.9842);
+  --sidebar: oklch(0.9850 0 0);
+  --sidebar-foreground: oklch(0.1450 0 0);
+  --sidebar-primary: oklch(0.2050 0 0);
+  --sidebar-primary-foreground: oklch(0.9850 0 0);
+  --sidebar-accent: oklch(0.9700 0 0);
+  --sidebar-accent-foreground: oklch(0.2050 0 0);
+  --sidebar-border: oklch(0.9220 0 0);
+  --sidebar-ring: oklch(0.7080 0 0);
+   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --font-sans: var(--font-poppins);
 --font-script: var(--font-allura);
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --radius: 0.625rem;
+  --radius: 1rem;
   --shadow-x: 0;
   --shadow-y: 1px;
   --shadow-blur: 3px;
@@ -56,8 +58,6 @@
   --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
   --tracking-normal: 0em;
   --spacing: 0.25rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
 }
 
 .dark {
