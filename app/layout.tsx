@@ -32,8 +32,11 @@
 //   );
 // }
 
-import { Allura, Poppins } from "next/font/google";
+import { Allura, Poppins, Geist } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -55,7 +58,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${poppins.variable} ${allura.variable}`}
+      className={cn(poppins.variable, allura.variable, "font-sans", geist.variable)}
     >
       <body>{children}</body>
     </html>

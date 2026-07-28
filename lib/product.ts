@@ -6,23 +6,7 @@ import { supabaseServer } from '@/lib/supabase-server'
    1. SCHEMA
    ============================================================ */
 
-export const createProductSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  slug: z
-    .string()
-    .min(1)
-    .regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'Slug must be lowercase, hyphen-separated'),
-  category: z.enum(['gajray', 'bouquet', 'baby_item', 'custom']),
-  price: z.number().positive().nullable(),
-  description: z.string().optional(),
-  images: z.array(z.string().url()).min(1, 'At least one image is required'),
-  featured: z.boolean().optional().default(false),
-})
-
-export const updateProductSchema = createProductSchema.partial()
-
-export type CreateProductInput = z.infer<typeof createProductSchema>
-export type UpdateProductInput = z.infer<typeof updateProductSchema>
+import { createProductSchema, updateProductSchema, type CreateProductInput, type UpdateProductInput } from '@/lib/schemas/product'
 
 /* ============================================================
    2. REPOSITORY
