@@ -1,33 +1,31 @@
 // lib/products.ts
-// Replaces: lib/schemas/product.schema.ts, lib/repositories/product.repository.ts,
-// lib/services/product.service.ts — all consolidated here since this project only
-// has one real entity. Split into separate files later only if this genuinely grows.
-
 import { z } from 'zod'
 import { supabaseServer } from '@/lib/supabase-server'
 
 /* ============================================================
-   1. SCHEMA — validation rules (was product.schema.ts)
+   1. SCHEMA
    ============================================================ */
 
 export const createProductSchema = z.object({
   name: z.string().min(1, 'Name is required'),
+  slug: z
+    .string()
+    .min(1)
+    .regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'Slug must be lowercase, hyphen-separated'),
   category: z.enum(['gajray', 'bouquet', 'baby_item', 'custom']),
-  price: z.number().positive().nullable(), // null = "custom pricing"
+  price: z.number().positive().nullable(),
   description: z.string().optional(),
   images: z.array(z.string().url()).min(1, 'At least one image is required'),
   featured: z.boolean().optional().default(false),
 })
 
-// Update allows partial fields — you don't want to resubmit the whole product to change one field
 export const updateProductSchema = createProductSchema.partial()
 
 export type CreateProductInput = z.infer<typeof createProductSchema>
 export type UpdateProductInput = z.infer<typeof updateProductSchema>
 
 /* ============================================================
-   2. REPOSITORY — raw Supabase queries (was product.repository.ts)
-   Only this section should ever touch supabaseServer directly.
+   2. REPOSITORY
    ============================================================ */
 
 const productRepository = {
@@ -50,6 +48,16 @@ const productRepository = {
     return data
   },
 
+  async findBySlug(slug: string) {
+    const { data, error } = await supabaseServer
+      .from('products')
+      .select('*')
+      .eq('slug', slug)
+      .single()
+    if (error) throw error
+    return data
+  },
+
   async findByCategory(category: string) {
     const { data, error } = await supabaseServer
       .from('products')
@@ -60,7 +68,6 @@ const productRepository = {
   },
 
   async create(input: CreateProductInput) {
-    console.log('Creating product with input:', input) // Debugging line
     const { data, error } = await supabaseServer
       .from('products')
       .insert(input)
@@ -89,9 +96,7 @@ const productRepository = {
 }
 
 /* ============================================================
-   3. SERVICE — validation + orchestration (was product.service.ts)
-   This is what route.ts and Server Components should import.
-   Nothing outside this file should call productRepository directly.
+   3. SERVICE
    ============================================================ */
 
 export const productService = {
@@ -103,12 +108,16 @@ export const productService = {
     return productRepository.findById(id)
   },
 
+  async getBySlug(slug: string) {
+    return productRepository.findBySlug(slug)
+  },
+
   async listByCategory(category: string) {
     return productRepository.findByCategory(category)
   },
 
   async create(rawInput: unknown) {
-    const input = createProductSchema.parse(rawInput) // throws ZodError if invalid
+    const input = createProductSchema.parse(rawInput)
     return productRepository.create(input)
   },
 
