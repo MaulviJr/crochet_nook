@@ -16,7 +16,7 @@ export function ShopHero() {
           </p>
         </div>
 
-        <div className="relative aspect-4/3 rounded-3xl overflow-hidden shadow-lg">
+       <div className="relative h-56 md:h-64 rounded-3xl overflow-hidden shadow-lg">
           <Image
             src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=900&q=70"
             alt="Handmade crochet flower bouquet"

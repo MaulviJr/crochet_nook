@@ -53,10 +53,10 @@ export function Hero() {
               priority
             />
           </div>
-          <div className="absolute -bottom-5 -left-5 sm:bottom-6 sm:left-6 size-24 sm:size-28 rounded-full bg-primary text-primary-foreground flex flex-col items-center justify-center text-center text-xs font-medium px-2 shadow-lg">
+          {/* <div className="absolute -bottom-5 -left-5 sm:bottom-6 sm:left-6 size-24 sm:size-28 rounded-full bg-primary text-primary-foreground flex flex-col items-center justify-center text-center text-xs font-medium px-2 shadow-lg">
             <Heart size={16} className="mb-1" />
             Handmade with love in Karachi
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

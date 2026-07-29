@@ -6,9 +6,9 @@ export const SITE_CONFIG = {
   name: 'Crochet Nook',
   tagline: 'Handmade with love in Karachi, Pakistan',
   // TODO: replace with the real business WhatsApp number (country code, no +/spaces)
-  whatsappNumber: '923001234567',
-  instagramHandle: '@crochet.nook.pk',
-  instagramUrl: 'https://instagram.com/crochet.nook.pk',
+  whatsappNumber: '923249230067',
+  instagramHandle: '@crochet_nook18',
+  instagramUrl: 'https://www.instagram.com/crochet_nook18/',
   location: 'Karachi, Pakistan',
 } as const
 

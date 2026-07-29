@@ -1,6 +1,19 @@
 // components/sections/home/testimonials.tsx
+'use client'
+
+import * as React from 'react'
+import Autoplay from 'embla-carousel-autoplay'
+
 import { SectionHeading } from '@/components/ui/section-heading'
 import { TestimonialCard, type Testimonial } from '@/components/ui/testimonial-card'
+
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel'
 
 // Real customer feedback (from WhatsApp / Instagram), provided directly by
 // the business for use on the site. No names or locations were supplied,
@@ -44,17 +57,57 @@ const DEFAULT_TESTIMONIALS: Testimonial[] = [
   },
 ]
 
-export function Testimonials({ testimonials = DEFAULT_TESTIMONIALS }: { testimonials?: Testimonial[] }) {
+export function Testimonials({
+  testimonials = DEFAULT_TESTIMONIALS,
+}: {
+  testimonials?: Testimonial[]
+}) {
+  const plugin = React.useRef(
+    Autoplay({
+      delay: 4500,
+      stopOnInteraction: true,
+    })
+  )
+
   if (testimonials.length === 0) return null
 
   return (
     <section className="px-4 sm:px-6 md:px-8 py-12 md:py-16 max-w-6xl mx-auto">
-      <SectionHeading eyebrow="Kind Words" title="Loved by Our Customers" align="center" />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-8">
-        {testimonials.map((t) => (
-          <TestimonialCard key={t.id} testimonial={t} />
-        ))}
-      </div>
+      <SectionHeading
+        eyebrow="Kind Words"
+        title="Loved by Our Customers"
+        align="center"
+      />
+
+      <Carousel
+        plugins={[plugin.current]}
+        className="mt-8"
+        onMouseEnter={plugin.current.stop}
+        onMouseLeave={plugin.current.reset}
+        opts={{
+          align: 'start',
+          loop: true,
+        }}
+      >
+        <CarouselContent className="-ml-4">
+          {testimonials.map((testimonial) => (
+            <CarouselItem
+              key={testimonial.id}
+              className="
+                pl-4
+                basis-full
+                md:basis-1/2
+                lg:basis-1/3
+              "
+            >
+              <TestimonialCard testimonial={testimonial} />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
     </section>
   )
 }

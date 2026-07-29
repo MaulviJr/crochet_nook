@@ -11,7 +11,6 @@ import { FooterCTA } from '@/components/sections/home/footer-cta'
 export default function Home() {
   return (
     <>
-      <AnnouncementBar />
       <SiteHeader />
       <Hero />
       <FeaturedProducts />

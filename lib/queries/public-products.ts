@@ -60,3 +60,45 @@ export async function getAllProductsForShop(): Promise<Product[]> {
   if (error) throw error
   return data as Product[]
 }
+
+// add to the existing file:
+
+export async function getProductBySlug(slug: string): Promise<Product | null> {
+  const { data, error } = await supabase.from('products').select('*').eq('slug', slug).single()
+
+  if (error) {
+    if (error.code === 'PGRST116') return null // no matching row
+    throw error
+  }
+  return data as Product
+}
+
+export async function getRelatedProducts(
+  category: string,
+  excludeId: string,
+  limit = 5
+): Promise<Product[]> {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('category', category)
+    .neq('id', excludeId)
+    .order('created_at', { ascending: false })
+    .limit(limit)
+
+  if (error) throw error
+  if (data.length >= limit) return data as Product[]
+
+  // Backfill with the newest products from other categories if this
+  // category alone doesn't have enough items yet.
+  const excludeIds = [excludeId, ...data.map((p) => p.id)]
+  const { data: fallback, error: fallbackError } = await supabase
+    .from('products')
+    .select('*')
+    .not('id', 'in', `(${excludeIds.join(',')})`)
+    .order('created_at', { ascending: false })
+    .limit(limit - data.length)
+
+  if (fallbackError) throw fallbackError
+  return [...data, ...(fallback ?? [])] as Product[]
+}
