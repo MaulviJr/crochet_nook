@@ -43,3 +43,20 @@ export async function getFeaturedOrRecentProducts(limit = 4): Promise<Product[]>
 
   return [...featured, ...(recent ?? [])] as Product[]
 }
+
+/**
+ * Returns every product for the /shop page. Filtering/sorting currently
+ * happens client-side (see lib/shop-filters.ts) against this single fetch —
+ * one query instead of one per filter combination. If the catalog grows
+ * large enough to need real pagination, this is the query to add
+ * `.range()` / filter `.eq()` calls to.
+ */
+export async function getAllProductsForShop(): Promise<Product[]> {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .order('created_at', { ascending: false })
+
+  if (error) throw error
+  return data as Product[]
+}

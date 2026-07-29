@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/shop', label: 'Shop' },
   { href: '/about', label: 'About' },
+  { href: '/how-to-order', label: 'How To Order' },
 ] as const
 
 export function SiteHeader() {

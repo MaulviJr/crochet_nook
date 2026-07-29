@@ -18,6 +18,12 @@ export type Product = {
   images: string[]
   featured: boolean
   created_at: string
+  /**
+   * Not in the database yet — reserved for future occasion tagging
+   * (see lib/occasions.ts). Optional so nothing else needs to change
+   * until it's actually populated.
+   */
+  occasions?: string[]
 }
 
 /* ============================================================

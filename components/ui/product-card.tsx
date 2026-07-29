@@ -1,15 +1,21 @@
 // components/ui/product-card.tsx
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
+import { useState } from 'react'
 import { Heart } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { formatPrice, CATEGORY_LABELS } from '@/lib/format'
+import { cn } from '@/lib/utils'
 
 import type { Product } from '@/lib/product'
 
 export function ProductCard({ product }: { product: Product }) {
   const image = product.images?.[0]
+  // UI-only wishlist toggle — nothing is persisted (no wishlist table yet).
+  const [wishlisted, setWishlisted] = useState(false)
 
   return (
     <Link href={`/product/${product.slug}`} className="group block h-full">
@@ -28,9 +34,19 @@ export function ProductCard({ product }: { product: Product }) {
               No image
             </div>
           )}
-          <span className="absolute top-2 right-2 size-8 rounded-full bg-background/90 flex items-center justify-center text-primary">
-            <Heart size={15} />
-          </span>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              setWishlisted((w) => !w)
+            }}
+            aria-pressed={wishlisted}
+            aria-label={wishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+            className="absolute top-2 right-2 size-8 rounded-full bg-background/90 flex items-center justify-center text-primary transition-transform hover:scale-110"
+          >
+            <Heart size={15} className={cn('transition-colors', wishlisted && 'fill-primary')} />
+          </button>
         </div>
         <div className="p-3 sm:p-4">
           <p className="font-medium text-foreground text-sm sm:text-base truncate">{product.name}</p>

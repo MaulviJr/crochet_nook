@@ -1,0 +1,29 @@
+// app/(site)/layout.tsx
+//
+// ⚠️ ONLY ADD THIS FILE IF app/(site)/layout.tsx DOES NOT ALREADY EXIST.
+// (Renamed to layout.OPTIONAL.tsx here so it can't accidentally overwrite
+// a real one — rename it back to layout.tsx once you've confirmed there
+// isn't one already.)
+//
+// app/(site)/about, app/(site)/product/[slug], and app/(site)/shop are all
+// stub/empty files inside the same "(site)" route group, which strongly
+// suggests a shared layout is meant to provide the header/footer chrome
+// (the same way app/page.tsx composes AnnouncementBar + SiteHeader +
+// FooterCTA manually for the standalone homepage route). If that layout
+// already exists, ShopPage will pick it up automatically and this file
+// isn't needed.
+
+import { AnnouncementBar } from '@/components/layout/announcement-bar'
+import { SiteHeader } from '@/components/layout/site-header'
+import { FooterCTA } from '@/components/sections/home/footer-cta'
+
+export default function SiteLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <AnnouncementBar />
+      <SiteHeader />
+      {children}
+      <FooterCTA />
+    </>
+  )
+}
