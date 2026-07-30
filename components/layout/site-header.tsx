@@ -3,13 +3,11 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, MessageCircle } from 'lucide-react'
 import { InstagramIcon } from '@/components/icons/instagram-icon'
 import { Button } from '@/components/ui/button'
 import { SITE_CONFIG, buildWhatsAppUrl } from '@/lib/site-config'
-import { MessageCircle } from 'lucide-react'
 import { OrderListBadge } from '@/components/layout/order-list-badge'
-
 
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
@@ -40,32 +38,47 @@ export function SiteHeader() {
           ))}
         </nav>
 
-<div className="flex items-center gap-2 sm:gap-3 shrink-0">
-  <a
-    href={SITE_CONFIG.instagramUrl}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="hidden sm:inline-flex text-muted-foreground hover:text-primary transition-colors"
-    aria-label="Instagram"
-  >
-    <InstagramIcon size={18} />
-  </a>
-  <a
-    href={buildWhatsAppUrl("Hi! I'd like to place an order.")}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="hidden sm:inline-flex text-muted-foreground hover:text-primary transition-colors"
-    aria-label="WhatsApp"
-  >
-    <MessageCircle size={18} />
-  </a>
+        <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hidden sm:inline-flex text-muted-foreground hover:text-primary"
+            aria-label="Instagram"
+            nativeButton={false}
+            render={
+              <a href={SITE_CONFIG.instagramUrl} target="_blank" rel="noopener noreferrer" />
+            }
+          >
+            <InstagramIcon size={18} />
+          </Button>
 
-  <OrderListBadge />
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hidden sm:inline-flex text-muted-foreground hover:text-primary"
+            aria-label="WhatsApp"
+            nativeButton={false}
+            render={
+              <a href={buildWhatsAppUrl("Hi! I'd like to place an order.")} target="_blank" rel="noopener noreferrer" />
+            }
+          >
+            <MessageCircle size={18} />
+          </Button>
 
-  <button /* hamburger — unchanged */>
-    {open ? <X size={20} /> : <Menu size={20} />}
-  </button>
-</div>
+          <OrderListBadge />
+
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            onClick={() => setOpen((prev) => !prev)}
+            className="md:hidden text-foreground"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </Button>
+        </div>
       </div>
 
       {open && (
@@ -88,6 +101,15 @@ export function SiteHeader() {
             className="flex items-center gap-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
           >
             <InstagramIcon size={16} /> Instagram
+          </a>
+          <a 
+          href={buildWhatsAppUrl("Hi! I'd like to place an order.")} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          onClick={() => setOpen(false)}
+          className="flex items-center gap-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+          >
+            <MessageCircle size={16} /> WhatsApp
           </a>
         </div>
       )}

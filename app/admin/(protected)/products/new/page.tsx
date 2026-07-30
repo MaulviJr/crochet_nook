@@ -1,9 +1,12 @@
+// app/admin/(protected)/products/new/page.tsx
+import { BackButton } from '@/components/admin/back-button'
 import { ProductForm } from '@/components/admin/product-form'
 
 export default function NewProductPage() {
   return (
     <div className="p-6 md:p-8 max-w-3xl mx-auto space-y-6">
       <div>
+        <BackButton href="/admin/products" label="Back to Products" />
         <h1 className="font-heading text-3xl text-primary">New Product</h1>
         <p className="text-muted-foreground text-sm mt-1">Add a new handmade piece to the catalog</p>
       </div>

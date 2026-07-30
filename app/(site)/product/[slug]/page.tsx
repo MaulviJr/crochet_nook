@@ -2,9 +2,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
-import { AnnouncementBar } from '@/components/layout/announcement-bar'
-import { SiteHeader } from '@/components/layout/site-header'
-import { FooterCTA } from '@/components/sections/home/footer-cta'
 import { FeatureHighlights } from '@/components/sections/home/feature-highlights'
 import { ProductGallery } from '@/components/product/product-gallery'
 import { ProductInformation } from '@/components/product/product-information'
@@ -23,8 +20,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   return (
     <>
-      
-
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-6 pb-28 lg:pb-6">
         <nav className="flex items-center gap-1.5 text-xs text-muted-foreground mb-5 flex-wrap">
           <Link href="/" className="hover:text-primary transition-colors">Home</Link>
@@ -43,18 +38,19 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <ProductInformation product={product} />
         </div>
 
-        <div className="grid lg:grid-cols-[1fr_320px] gap-8 lg:gap-12 mt-10">
-          <div>
-            <ProductTabs product={product} />
-            <RelatedProducts category={product.category} excludeId={product.id} />
-            <ReviewsSection />
-          </div>
-          <StickyOrderSidebar />
-        </div>
+     <div className="grid lg:grid-cols-[1fr_320px] gap-8 lg:gap-12 mt-10">
+  <div className="min-w-0">
+    <ProductTabs product={product} />
+    <RelatedProducts category={product.category} excludeId={product.id} />
+    <ReviewsSection />
+  </div>
+
+  <StickyOrderSidebar />
+</div>
       </div>
 
       <FeatureHighlights />
-      <FooterCTA />
+      {/* <FooterCTA /> */}
       <StickyOrderMobileBar />
     </>
   )

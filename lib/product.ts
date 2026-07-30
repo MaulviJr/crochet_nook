@@ -1,6 +1,6 @@
 // lib/products.ts
 import { z } from 'zod'
-import { supabaseServer } from '@/lib/supabase-server'
+import { supabaseServer } from '@/lib/supabase-admin'
 
 /* ============================================================
    1. SCHEMA
