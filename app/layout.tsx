@@ -35,7 +35,7 @@
 import { Allura, Poppins, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-
+import NextTopLoader from 'nextjs-toploader'
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const poppins = Poppins({
@@ -60,6 +60,7 @@ export default function RootLayout({
       lang="en"
       className={cn(poppins.variable, allura.variable, "font-sans", geist.variable)}
     >
+       <NextTopLoader color="var(--primary)" showSpinner={false} />
       <body>{children}</body>
     </html>
   );
