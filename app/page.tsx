@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <SiteHeader />
       <Hero />
-   
+      <FeaturedProducts />
       <CategoriesPreview />
       <Testimonials />
       <InstagramSection />
