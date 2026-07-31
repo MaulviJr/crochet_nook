@@ -7,10 +7,10 @@ import { SITE_CONFIG } from '@/lib/site-config'
 // keeps swapping in a real source later — a `social_posts` table or the
 // Instagram Graph API — a one-line change at the call site, no rewrite.
 const DEFAULT_IMAGES = [
-  'https://images.unsplash.com/photo-1487530811176-3780de880c2d?auto=format&fit=crop&w=400&q=60',
-  'https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?auto=format&fit=crop&w=400&q=60',
-  'https://images.unsplash.com/photo-1508616873439-4527d2555b4f?auto=format&fit=crop&w=400&q=60',
-  'https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?auto=format&fit=crop&w=400&q=60',
+  '/images/home_1.jpeg',
+  '/images/home_2.jpeg',
+  '/images/home_3.jpeg',
+  '/images/home_4.jpeg',
 ]
 
 export function InstagramSection({ images = DEFAULT_IMAGES }: { images?: string[] }) {

@@ -37,7 +37,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import NextTopLoader from 'nextjs-toploader'
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
-
+import type { Metadata } from "next";
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
@@ -50,6 +50,11 @@ const allura = Allura({
   variable: "--font-allura",
 });
 
+
+export const metadata: Metadata = {
+  title: "Crochet Nook",
+  description: "Handmade crochet flowers, bouquets, keychains and plushies.",
+};
 export default function RootLayout({
   children,
 }: Readonly<{

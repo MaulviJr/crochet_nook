@@ -6,10 +6,10 @@ import Image from 'next/image'
 // product photography — or a Supabase-backed source later — stays a
 // one-line change at the call site.
 const DEFAULT_IMAGES = [
-  { src: '/images/about/gallery/1.jpg', alt: 'Handmade crochet flower gajray' },
-  { src: '/images/about/gallery/2.jpg', alt: 'Crochet flower bouquet wrapped for gifting' },
-  { src: '/images/about/gallery/3.jpg', alt: 'Handmade crochet bunny hat' },
-  { src: '/images/about/gallery/4.jpg', alt: 'Personalized crochet daisy keychain' },
+  { src: '/images/home_1.jpeg', alt: 'Handmade crochet flower gajray' },
+  { src: '/images/home_2.jpeg', alt: 'Crochet flower bouquet wrapped for gifting' },
+  { src: '/images/home_3.jpeg', alt: 'Handmade crochet bunny hat' },
+  { src: '/images/home_4.jpeg', alt: 'Personalized crochet daisy keychain' },
 ]
 
 export function GallerySection({

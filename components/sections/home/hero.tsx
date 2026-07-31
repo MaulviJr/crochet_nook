@@ -46,12 +46,13 @@ export function Hero() {
             {/* Placeholder photography — replace with real product photos
                 uploaded via the admin panel / Supabase Storage. */}
             <Image
-              src="https://jkefcunncwgayrwwyjmq.supabase.co/storage/v1/object/public/product-images/products/268c3284-a308-4451-9255-a44885f532ff.png"
-              alt="Handmade crochet gajray and flowers"
-              fill
-              className="object-cover"
-              priority
-            />
+  src="/images/login-hero.png"
+  alt="Handmade crochet gajray and flowers"
+  fill
+  className="object-cover"
+  priority
+  sizes="(max-width: 768px) 100vw, 50vw"
+/>
           </div>
           {/* <div className="absolute -bottom-5 -left-5 sm:bottom-6 sm:left-6 size-24 sm:size-28 rounded-full bg-primary text-primary-foreground flex flex-col items-center justify-center text-center text-xs font-medium px-2 shadow-lg">
             <Heart size={16} className="mb-1" />

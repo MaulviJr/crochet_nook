@@ -49,7 +49,7 @@ export function AboutHero() {
             {/* Placeholder photography — replace with a real lifestyle photo
                 at /public/images/about/hero.jpg */}
             <Image
-              src="/images/about/hero.jpg"
+              src="/images/about.jpeg"
               alt="A handmade crochet heart keychain surrounded by dried flowers"
               fill
               className="object-cover"

@@ -24,13 +24,13 @@ export function SiteHeader() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 h-16 flex items-center justify-between gap-3">
         <Link href="/" className="font-script text-3xl text-primary leading-none shrink-0">
           {/* {SITE_CONFIG.name} */}
-          <Image
-            src="/images/logo_crochet.png"
-            alt="Crochet Nook Logo"
-            width={150}
-            height={40}
-            className="object-contain"
-          />
+        <Image
+  src="/images/logo_crochet.png"
+  alt="Crochet Nook Logo"
+  width={150}
+  height={40}
+  className="w-37.5 h-auto object-contain"
+/>
         </Link>
 
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">

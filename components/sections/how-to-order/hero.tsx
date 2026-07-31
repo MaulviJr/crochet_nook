@@ -39,7 +39,7 @@ export function HowToOrderHero() {
             {/* Placeholder photography — replace with a real lifestyle photo
                 at /public/images/how-to-order/hero.jpg */}
             <Image
-              src="/images/how-to-order/hero.jpg"
+              src="/images/how-to-order.png"
               alt="Handmade crochet heart and yarn, wrapped with love"
               fill
               className="object-cover"
