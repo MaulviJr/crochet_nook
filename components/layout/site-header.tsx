@@ -8,7 +8,7 @@ import { InstagramIcon } from '@/components/icons/instagram-icon'
 import { Button } from '@/components/ui/button'
 import { SITE_CONFIG, buildWhatsAppUrl } from '@/lib/site-config'
 import { OrderListBadge } from '@/components/layout/order-list-badge'
-
+import Image from 'next/image'
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/shop', label: 'Shop' },
@@ -23,7 +23,14 @@ export function SiteHeader() {
     <header className="bg-background border-b border-border sticky top-0 z-40">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 h-16 flex items-center justify-between gap-3">
         <Link href="/" className="font-script text-3xl text-primary leading-none shrink-0">
-          {SITE_CONFIG.name}
+          {/* {SITE_CONFIG.name} */}
+          <Image
+            src="/images/logo_crochet.png"
+            alt="Crochet Nook Logo"
+            width={150}
+            height={40}
+            className="object-contain"
+          />
         </Link>
 
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">

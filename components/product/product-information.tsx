@@ -58,7 +58,7 @@ export function ProductInformation({ product }: { product: Product }) {
 
       <div className="flex items-center gap-2 mt-4 text-xs text-muted-foreground bg-secondary/50 rounded-lg px-3 py-2.5">
         <Truck size={16} className="text-primary shrink-0" />
-        Made to order — dispatched in 3–5 working days
+        Made to order — dispatched in 7-10 working days
       </div>
     </div>
   )

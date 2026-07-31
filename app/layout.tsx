@@ -60,8 +60,8 @@ export default function RootLayout({
       lang="en"
       className={cn(poppins.variable, allura.variable, "font-sans", geist.variable)}
     >
-       <NextTopLoader color="var(--primary)" showSpinner={false} />
-      <body>{children}</body>
+       
+      <body><NextTopLoader color="var(--primary)" showSpinner={false} />{children}</body>
     </html>
   );
 }
