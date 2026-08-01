@@ -22,17 +22,17 @@ export type ProductReview = {
 const PLACEHOLDER_REVIEWS: ProductReview[] = [
   {
     id: '1',
-    name: 'Areeba Khan',
+    name: 'Verified Customer',
     rating: 5,
     comment:
-      'The gajray was even more beautiful in person. So light and comfortable. Got so many compliments. Thank you!',
+      "Received my sunflower purse parcel — beautiful work ماشاء اللہ I've already ordered two more پوٹلی purses. Best of luck, and keep up the great work!",
   },
   {
     id: '2',
-    name: 'Sana M.',
+    name: 'Verified Customer',
     rating: 5,
     comment:
-      'Absolutely loved the quality and packaging. You can feel the love in every stitch! Will order again.',
+      "I ordered hand crochet gajray for my daughter, they are super cute with the finest quality. I'll definitely shop again, jazakAllah ❤️",
   },
 ]
 
