@@ -30,14 +30,22 @@ const PAGE_SIZE = 9
  * this component only filters/sorts/paginates the array it's given, via
  * the pure helpers in lib/shop-filters.ts.
  */
+
+
+
 export function ProductCatalog({
   products,
   categoryCounts,
+  initialCategory,
 }: {
   products: Product[]
   categoryCounts: Record<string, number>
+  initialCategory?: string
 }) {
-  const [filters, setFilters] = useState<ShopFilters>(DEFAULT_SHOP_FILTERS)
+  const [filters, setFilters] = useState<ShopFilters>(() => ({
+    ...DEFAULT_SHOP_FILTERS,
+    category: initialCategory ?? DEFAULT_SHOP_FILTERS.category,
+  }))
   const [sort, setSort] = useState<ShopSort>(DEFAULT_SHOP_SORT)
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
 

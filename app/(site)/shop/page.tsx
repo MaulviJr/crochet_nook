@@ -11,14 +11,31 @@ export const metadata: Metadata = {
   description: 'Browse handmade crochet gajrays, bouquets, baby items and custom orders — all made with love in Karachi.',
 }
 
-export default async function ShopPage() {
+// export default async function ShopPage() {
+//   const products = await getAllProductsForShop()
+//   const categoryCounts = getCategoryCounts(products)
+
+//   return (
+//     <>
+//       <ShopHero />
+//       <ProductCatalog products={products} categoryCounts={categoryCounts} />
+//       <CustomOrderCTA />
+//     </>
+//   )
+// }
+export default async function ShopPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string }>
+}) {
+  const { category } = await searchParams
   const products = await getAllProductsForShop()
   const categoryCounts = getCategoryCounts(products)
 
   return (
     <>
       <ShopHero />
-      <ProductCatalog products={products} categoryCounts={categoryCounts} />
+      <ProductCatalog products={products} categoryCounts={categoryCounts} initialCategory={category} />
       <CustomOrderCTA />
     </>
   )
