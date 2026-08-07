@@ -1,5 +1,5 @@
 // components/sections/home/categories-preview.tsx
-import { Flower2, Flower, Baby, Heart } from 'lucide-react'
+import { Flower2, Flower, Baby, Heart,Handbag,KeyRound } from 'lucide-react'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { CategoryCard } from '@/components/ui/category-card'
 import { CATEGORY_OPTIONS } from '@/lib/schemas/product'
@@ -18,6 +18,18 @@ const CATEGORY_META: Record<string, { icon: React.ReactNode; description: string
   baby_item: {
     icon: <Baby size={26} />,
     description: 'Soft, safe & cosy crochet essentials for your little ones',
+  },
+  bags_purses: {
+    icon: <Handbag size={26} />,
+    description: 'Stylish bags and purses for every occasion',
+  },
+  flowers: {
+    icon: <Flower size={26} />,
+    description: 'Beautiful crochet flowers for any celebration',
+  },
+  keychains: {
+    icon: <KeyRound size={26} />,
+    description: 'Unique keychains to keep your keys organized',
   },
   custom: {
     icon: <Heart size={26} />,
