@@ -30,4 +30,7 @@ export const CATEGORY_LABELS: Record<string, string> = {
   bouquet: 'Bouquet',
   baby_item: 'Baby Item',
   custom: 'Custom Order',
+  bags_purses: 'Bags & Purses',
+  flowers: 'Flowers',
+  keychains: 'Keychains',
 }
