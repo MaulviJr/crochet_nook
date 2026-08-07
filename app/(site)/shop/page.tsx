@@ -5,7 +5,7 @@ import { ProductCatalog } from '@/components/sections/shop/product-catalog'
 import { CustomOrderCTA } from '@/components/sections/shop/custom-order-cta'
 import { getAllProductsForShop } from '@/lib/queries/public-products'
 import { getCategoryCounts } from '@/lib/shop-filters'
-
+export const revalidate = 60;
 export const metadata: Metadata = {
   title: 'Shop | Crochet Nook',
   description: 'Browse handmade crochet gajrays, bouquets, baby items and custom orders — all made with love in Karachi.',

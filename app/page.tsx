@@ -7,8 +7,10 @@ import { Testimonials } from '@/components/sections/home/testimonials'
 import { InstagramSection } from '@/components/sections/home/instagram-section'
 import { FeatureHighlights } from '@/components/sections/home/feature-highlights'
 import { FooterCTA } from '@/components/sections/home/footer-cta'
-
+export const revalidate = 60 
 export default function Home() {
+
+  
   return (
     <>
       <SiteHeader />

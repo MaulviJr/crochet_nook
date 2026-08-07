@@ -2,7 +2,7 @@
 import { NextResponse } from 'next/server'
 import { ZodError } from 'zod'
 import { productService } from '@/lib/product'
-
+import { revalidatePath } from 'next/cache'
 export async function GET(_req: Request,{ params }: { params: Promise<{ id: string }> }) {
   const {id} = await params;
   const product = await productService.getById(id)
@@ -14,6 +14,9 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     const body = await req.json()
     const { id } = await params;
     const product = await productService.update(id, body)
+    revalidatePath('/')
+    revalidatePath('/shop')
+    revalidatePath(`/product/${product.slug}`)
     return NextResponse.json(product)
   } catch (err) {
     if (err instanceof ZodError) {
@@ -26,7 +29,9 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
 export async function DELETE(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   
    const { id } = await params;
-   console.log('Received DELETE request for product:', id) // Debugging line
+   
   await productService.delete(id)
+  revalidatePath('/')
+  revalidatePath('/shop')
   return NextResponse.json({ success: true })
 }
