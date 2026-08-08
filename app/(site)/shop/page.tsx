@@ -1,15 +1,20 @@
 // app/(site)/shop/page.tsx
-import type { Metadata } from 'next'
 import { ShopHero } from '@/components/sections/shop/shop-hero'
 import { ProductCatalog } from '@/components/sections/shop/product-catalog'
 import { CustomOrderCTA } from '@/components/sections/shop/custom-order-cta'
 import { getAllProductsForShop } from '@/lib/queries/public-products'
 import { getCategoryCounts } from '@/lib/shop-filters'
+import type { Metadata } from 'next'
+import { buildMetadata } from '@/lib/seo'
+
+
 export const revalidate = 60;
-export const metadata: Metadata = {
-  title: 'Shop | Crochet Nook',
-  description: 'Browse handmade crochet gajrays, bouquets, baby items and custom orders — all made with love in Karachi.',
-}
+export const metadata: Metadata = buildMetadata({
+  title: 'Shop Handmade Crochet Bouquets, Gajray & Gifts',
+  description:
+    'Browse handmade crochet bouquets, gajray, baby items, plushies, keychains & custom gifts — all made in Karachi. Filter by category and order on WhatsApp.',
+  path: '/shop',
+})
 
 // export default async function ShopPage() {
 //   const products = await getAllProductsForShop()

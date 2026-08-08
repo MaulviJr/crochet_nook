@@ -5,11 +5,20 @@
 export const SITE_CONFIG = {
   name: 'Crochet Nook',
   tagline: 'Handmade with love in Karachi, Pakistan',
-  // TODO: replace with the real business WhatsApp number (country code, no +/spaces)
-  whatsappNumber: '923249230067',
+  whatsappNumber: '923001234567',
   instagramHandle: '@crochet_nook18',
-  instagramUrl: 'https://www.instagram.com/crochet_nook18/',
+  instagramUrl: 'https://instagram.com/crochet_nook18',
   location: 'Karachi, Pakistan',
+  // Placeholder until you own a domain — swap the env var in production.
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://crochetnook.example.com',
+  defaultKeywords: [
+    'handmade crochet Karachi',
+    'crochet gajray',
+    'crochet bouquet Karachi',
+    'handmade crochet Pakistan',
+    'crochet baby gifts',
+    'custom crochet gifts Pakistan',
+  ],
 } as const
 
 export function buildWhatsAppUrl(message?: string) {

@@ -16,6 +16,24 @@ import type { Product } from '@/lib/product'
  * products — easy to simplify to "featured only" later once the catalog
  * has enough featured items.
  */
+
+export async function getAllProductSlugsForSitemap(): Promise<{ slug: string; created_at: string }[]> {
+  const { data, error } = await supabase
+    .from('products')
+    .select('slug, created_at')
+
+  if (error) throw error
+  return data ?? []
+}
+export async function getProductBySlugPublic(slug: string): Promise<Product | null> {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('slug', slug)
+    .maybeSingle()
+  if (error) throw error
+  return data as Product | null
+}
 export async function getFeaturedOrRecentProducts(limit = 4): Promise<Product[]> {
   const { data: featured, error: featuredError } = await supabase
     .from('products')
