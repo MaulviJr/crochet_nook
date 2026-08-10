@@ -46,7 +46,7 @@ export function Hero() {
             {/* Placeholder photography — replace with real product photos
                 uploaded via the admin panel / Supabase Storage. */}
             <Image
-  src="/images/login-hero.png"
+  src="/images/login-hero.webp"
   alt="Handmade crochet gajray and flowers"
   fill
   className="object-cover"
