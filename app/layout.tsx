@@ -24,7 +24,7 @@ const allura = Allura({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.siteUrl),
   title: {
-    default: "Handmade Crochet Bouquets, Gajray & Gifts in Karachi | Crochet Nook",
+    default: "Crochet Nook | Handmade Crochet Bouquets, Gajray & Gifts in Karachi",
     template: `%s | ${SITE_CONFIG.name}`,
   },
   description:
