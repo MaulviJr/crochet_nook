@@ -17,6 +17,7 @@ import { buildMetadata } from '@/lib/seo'
 import { JsonLd } from '@/components/seo/json-ld'
 import { productSchema, breadcrumbSchema } from '@/lib/structured-data'
 import { SITE_CONFIG } from '@/lib/site-config'
+import { ProductViewTracker } from '@/components/product/product-view-tracker'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -54,6 +55,7 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <>
+       <ProductViewTracker product={product} />
       <JsonLd data={productSchema(product)} />
       <JsonLd
         data={breadcrumbSchema([

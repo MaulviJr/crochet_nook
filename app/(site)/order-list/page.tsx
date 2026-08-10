@@ -3,7 +3,7 @@
 
 import Link from 'next/link'
 import { MessageCircle, ShoppingBag } from 'lucide-react'
-
+import { trackInitiateCheckout } from '@/lib/fb-pixel'
 import { FooterCTA } from '@/components/sections/home/footer-cta'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -48,7 +48,10 @@ export default function OrderListPage() {
                 <span className="font-heading text-xl text-primary">{formatPrice(subtotal)}</span>
               </div>
 
-              <a href={buildOrderListWhatsAppUrl(items)} target="_blank" rel="noopener noreferrer" className="block mt-5">
+              <a href={buildOrderListWhatsAppUrl(items)} target="_blank" rel="noopener noreferrer" className="block mt-5"
+              onClick={() =>
+    trackInitiateCheckout(items.map((i) => ({ id: i.productId, name: i.name, price: i.price })))
+  }>
                 <Button className="w-full" size="lg">
                   <MessageCircle size={16} /> Send Order on WhatsApp
                 </Button>

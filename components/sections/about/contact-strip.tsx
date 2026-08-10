@@ -3,6 +3,7 @@ import { MessageCircle, Heart } from 'lucide-react'
 import { InstagramIcon } from '@/components/icons/instagram-icon'
 import { Button } from '@/components/ui/button'
 import { SITE_CONFIG, buildWhatsAppUrl } from '@/lib/site-config'
+import { trackContact } from '@/lib/fb-pixel'
 
 export function ContactStrip() {
   return (
@@ -53,6 +54,7 @@ export function ContactStrip() {
           target="_blank"
           rel="noopener noreferrer"
           className="w-full md:w-auto shrink-0"
+           onClick={() => trackContact()}
         >
           <Button size="lg" className="w-full md:w-auto">
             Let&apos;s Connect <Heart size={16} />

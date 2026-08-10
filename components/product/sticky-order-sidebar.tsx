@@ -10,7 +10,7 @@ import { useOrderStore } from '@/lib/store/order-store'
 import { useHydrated } from '@/lib/store/use-hydrated'
 import { buildOrderListWhatsAppUrl } from '@/lib/whatsapp-order-message'
 import { formatPrice } from '@/lib/format'
-
+import { trackInitiateCheckout } from '@/lib/fb-pixel'
 export function StickyOrderSidebar() {
   const hydrated = useHydrated()
   const items = useOrderStore((s) => s.items)
@@ -49,7 +49,10 @@ export function StickyOrderSidebar() {
           <span className="font-medium text-foreground">{formatPrice(subtotal)}</span>
         </div>
 
-        <a href={buildOrderListWhatsAppUrl(items)} target="_blank" rel="noopener noreferrer" className="block mt-4">
+        <a href={buildOrderListWhatsAppUrl(items)} target="_blank" rel="noopener noreferrer" className="block mt-4"
+         onClick={() =>
+    trackInitiateCheckout(items.map((i) => ({ id: i.productId, name: i.name, price: i.price })))
+  }>
           <Button type="button" className="w-full">
             <MessageCircle size={16} /> Send Order on WhatsApp
           </Button>

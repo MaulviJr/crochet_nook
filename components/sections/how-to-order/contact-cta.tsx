@@ -3,6 +3,7 @@ import { MessageCircle, ArrowRight } from 'lucide-react'
 import { InstagramIcon } from '@/components/icons/instagram-icon'
 import { Button } from '@/components/ui/button'
 import { SITE_CONFIG, buildWhatsAppUrl } from '@/lib/site-config'
+import { trackContact } from '@/lib/fb-pixel'
 
 export function ContactCTA() {
   return (
@@ -50,6 +51,7 @@ export function ContactCTA() {
           target="_blank"
           rel="noopener noreferrer"
           className="w-full md:w-auto shrink-0"
+           onClick={() => trackContact()}
         >
           <Button size="lg" className="w-full md:w-auto">
             Let&apos;s Create Something Beautiful <ArrowRight size={16} />

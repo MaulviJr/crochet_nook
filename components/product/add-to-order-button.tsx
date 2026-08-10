@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { Heart, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useOrderStore } from '@/lib/store/order-store'
+import { trackAddToCart } from '@/lib/fb-pixel'
 import type { Product } from '@/lib/product'
 
 export function AddToOrderButton({ product }: { product: Product }) {
@@ -18,6 +19,12 @@ export function AddToOrderButton({ product }: { product: Product }) {
       name: product.name,
       price: product.price,
       image: product.images?.[0] ?? null,
+    })
+    trackAddToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      category: product.category,
     })
     setJustAdded(true)
     setTimeout(() => setJustAdded(false), 1500)

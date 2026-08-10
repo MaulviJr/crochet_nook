@@ -4,6 +4,7 @@ import { MapPin, Phone } from 'lucide-react'
 import {InstagramIcon} from '@/components/icons/instagram-icon'
 import { SITE_CONFIG, buildWhatsAppUrl } from '@/lib/site-config'
 import { NewsletterWhatsAppForm } from '@/components/sections/home/newsletter-whatsapp-form'
+import { trackContact } from '@/lib/fb-pixel'
 
 export function FooterCTA() {
   return (
@@ -39,6 +40,7 @@ export function FooterCTA() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 hover:text-primary-foreground transition-colors"
+                 onClick={() => trackContact()}
               >
                 <Phone size={14} /> Order on WhatsApp
               </a>
@@ -62,9 +64,9 @@ export function FooterCTA() {
         <div>
           <p className="font-medium mb-3">Love Notes</p>
           <p className="text-sm text-primary-foreground/70">
-            Join our little community for updates, new launches & handmade love.
+            Stay updated with our latest designs and special offers!
           </p>
-          <NewsletterWhatsAppForm />
+          {/* <NewsletterWhatsAppForm /> */}
         </div>
       </div>
 

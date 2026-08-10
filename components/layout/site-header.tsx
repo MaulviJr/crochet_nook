@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import { SITE_CONFIG, buildWhatsAppUrl } from '@/lib/site-config'
 import { OrderListBadge } from '@/components/layout/order-list-badge'
 import Image from 'next/image'
+import { trackContact } from '@/lib/fb-pixel'
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/shop', label: 'Shop' },
@@ -66,7 +67,8 @@ export function SiteHeader() {
             aria-label="WhatsApp"
             nativeButton={false}
             render={
-              <a href={buildWhatsAppUrl("Hi! I'd like to place an order.")} target="_blank" rel="noopener noreferrer" />
+              <a href={buildWhatsAppUrl("Hi! I'd like to place an order.")} target="_blank" rel="noopener noreferrer"
+               onClick={() => trackContact()} />
             }
           >
             <MessageCircle size={18} />
