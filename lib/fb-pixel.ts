@@ -15,7 +15,7 @@ export function pageview() {
 
 // For later — e.g. firing "Lead" when someone clicks "Order on WhatsApp"
 export function fbEvent(name: string, options?: Record<string, unknown>) {
-     console.log('fbEvent called:', name, options)
+     
   if (typeof window.fbq === 'function') {
     window.fbq('track', name, options)
   }
