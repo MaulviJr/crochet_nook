@@ -12,7 +12,7 @@ import { buildMetadata } from '@/lib/seo'
 
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Handmade Crochet Bouquets, Gajray & Gifts in Karachi',
+  title: 'Crochet Nook | Handmade Crochet Items Order Online',
   description:
     'Shop handmade crochet bouquets, gajray, baby items, plushies & custom gifts — lovingly crafted in Karachi, Pakistan. Browse the catalogue and order on WhatsApp.',
   path: '/',
