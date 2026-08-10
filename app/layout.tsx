@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Allura, Poppins, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -6,6 +7,7 @@ import type { Metadata, Viewport } from "next";
 import { SITE_CONFIG } from "@/lib/site-config";
 import { JsonLd } from "@/components/seo/json-ld";
 import { organizationSchema, websiteSchema } from "@/lib/structured-data";
+import { MetaPixel } from "@/components/analytics/meta-pixel";
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -54,6 +56,9 @@ export default function RootLayout({
       className={cn(poppins.variable, allura.variable, "font-sans", geist.variable)}
     >
       <body>
+        <Suspense fallback={null}>
+          <MetaPixel />
+        </Suspense>
         <NextTopLoader color="var(--primary)" showSpinner={false} />
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
