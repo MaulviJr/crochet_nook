@@ -1,4 +1,5 @@
 // components/sections/about/contact-strip.tsx
+'use client'
 import { MessageCircle, Heart } from 'lucide-react'
 import { InstagramIcon } from '@/components/icons/instagram-icon'
 import { Button } from '@/components/ui/button'

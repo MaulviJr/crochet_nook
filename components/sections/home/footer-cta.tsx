@@ -1,4 +1,5 @@
 // components/sections/home/footer-cta.tsx
+'use client'
 import Link from 'next/link'
 import { MapPin, Phone } from 'lucide-react'
 import {InstagramIcon} from '@/components/icons/instagram-icon'

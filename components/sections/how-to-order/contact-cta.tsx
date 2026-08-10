@@ -1,4 +1,5 @@
 // components/sections/how-to-order/contact-cta.tsx
+'use client'
 import { MessageCircle, ArrowRight } from 'lucide-react'
 import { InstagramIcon } from '@/components/icons/instagram-icon'
 import { Button } from '@/components/ui/button'
