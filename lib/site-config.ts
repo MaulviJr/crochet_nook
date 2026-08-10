@@ -5,7 +5,7 @@
 export const SITE_CONFIG = {
   name: 'Crochet Nook',
   tagline: 'Handmade with love in Karachi, Pakistan',
-  whatsappNumber: '923001234567',
+  whatsappNumber: '923249230067',
   instagramHandle: '@crochet_nook18',
   instagramUrl: 'https://instagram.com/crochet_nook18',
   location: 'Karachi, Pakistan',
