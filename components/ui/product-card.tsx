@@ -48,7 +48,7 @@ export function ProductCard({ product }: { product: Product }) {
             <Heart size={15} className={cn('transition-colors', wishlisted && 'fill-primary')} />
           </button>
         </div>
-        <div className="p-3 sm:p-4">
+        <div className="p-2 sm:p-4">
           <p className="font-medium text-foreground text-sm sm:text-base truncate">{product.name}</p>
           <p className="text-primary text-sm mt-0.5">{formatPrice(product.price)}</p>
           <Badge variant="secondary" className="mt-2">
